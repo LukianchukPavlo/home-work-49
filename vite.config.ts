@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react-swc'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/home-work-49/',
   test: {
     globals: true, // Дозволяє використовувати глобальні змінні, такі як `describe`, `test`, `expect` без імпорту
     environment: 'jsdom', // Використовує jsdom для імітації браузерного середовища
