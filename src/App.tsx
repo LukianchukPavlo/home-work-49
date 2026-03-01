@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <User userId={1}/>
+      <User/>
     </>
   )
 }

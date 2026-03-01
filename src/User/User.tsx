@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import axios from 'axios';
 
 export type UserType = {
@@ -9,15 +9,23 @@ export type UserType = {
   username: string;
   website: string;
 };
-
-type UserProps = {
-    userId: number;
+export type FirstUser = {
+  text: string
 }
 
-export default function User({ userId }: UserProps){
+const FirstUser = memo(function FirstUser({text}: FirstUser)  {
+      return <div>{text}</div>
+    })
+export default function User(){
     const [user, setUser] = useState<UserType | null >(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [userId, setUserId] = useState(1)
+
+    
+    const nextUser = useCallback(() => {
+      setUserId(id => id < 10 ? id + 1 : 1);
+    }, [])
 
 useEffect (() => {
         let isMounted = true;
@@ -51,6 +59,9 @@ useEffect (() => {
       <p><strong>Phone:</strong> {user.phone}</p>
       <p><strong>Username:</strong> {user.username}</p>
       <p><strong>Website:</strong> {user.website}</p>
+      <button onClick={nextUser}>Next User</button>
+      <p>User {userId}</p>
+      <FirstUser text="first User was Leanne Graham"/>
     </div>
   )
 }
