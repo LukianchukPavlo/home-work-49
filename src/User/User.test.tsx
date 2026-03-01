@@ -19,7 +19,7 @@ describe('User component', () => {
 
   it('should show loading message', async () => {
     mockedAxios.get = vi.fn().mockResolvedValue({ data: {} })
-    render(<User userId={1} />)
+    render(<User/>)
     const loading = screen.getByText(/loading/i)
 
     expect(loading).toBeInTheDocument();
@@ -38,7 +38,7 @@ describe('User component', () => {
       }
     });
 
-    render(<User userId={1} />);
+    render(<User />);
 
     
 
@@ -62,7 +62,7 @@ describe('User component', () => {
 
     mockedAxios.get = vi.fn().mockRejectedValue(new Error('Fail'));
 
-    render(<User userId={1} />);
+    render(<User />);
 
     const error = await screen.findByText(/error loading user/i);
 
