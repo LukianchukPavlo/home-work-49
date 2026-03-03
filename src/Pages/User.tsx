@@ -1,5 +1,10 @@
 import { useState, useEffect, useCallback, memo } from "react";
 import axios from 'axios';
+import { Fa1 } from "react-icons/fa6";
+import { HiDevicePhoneMobile } from "react-icons/hi2";
+import { ToastContainer, toast } from 'react-toastify';
+import { Tooltip } from 'react-tooltip';
+import { GoQuestion } from "react-icons/go";
 
 export type UserType = {
   id: number;
@@ -14,18 +19,28 @@ export type FirstUser = {
 }
 
 const FirstUser = memo(function FirstUser({text}: FirstUser)  {
-      return <div>{text}</div>
+      return <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+        <Fa1 style={{ color: "#23d623ff"}}/>
+        {text}
+        </div>
     })
 export default function User(){
     const [user, setUser] = useState<UserType | null >(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [userId, setUserId] = useState(1)
-
     
+    const notify = useCallback(() => {
+      toast(" Наступний користувач ")
+    },[])
     const nextUser = useCallback(() => {
       setUserId(id => id < 10 ? id + 1 : 1);
     }, [])
+    const handleClick = useCallback(() => {
+      nextUser();
+      notify()
+    }, [nextUser, notify])
+
 
 useEffect (() => {
         let isMounted = true;
@@ -56,12 +71,17 @@ useEffect (() => {
       <h2>User data:</h2>
       <p><strong>Name:</strong> {user.name}</p>
       <p><strong>Email:</strong> {user.email}</p>
-      <p><strong>Phone:</strong> {user.phone}</p>
+      <p style={{ display: "flex", alignItems: "center"}}><HiDevicePhoneMobile style={{ fontSize: "24px"}}/>: {user.phone}</p>
       <p><strong>Username:</strong> {user.username}</p>
       <p><strong>Website:</strong> {user.website}</p>
-      <button onClick={nextUser}>Next User</button>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", }}>
+        <button onClick={handleClick} >Next User</button>
+        <GoQuestion data-tooltip-id="my-tooltip" data-tooltip-content="Наступний користувач"  style={{ fontSize: "24px", marginLeft: "8px" }}/>
+      </div>
+      <Tooltip id="my-tooltip" place="top"/>
+      <ToastContainer/>
       <p>User {userId}</p>
-      <FirstUser text="first User was Leanne Graham"/>
+      <FirstUser text=" User was Leanne Graham"/>
     </div>
   )
 }
