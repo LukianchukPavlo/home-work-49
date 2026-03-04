@@ -19,8 +19,8 @@ export type FirstUser = {
 }
 
 const FirstUser = memo(function FirstUser({text}: FirstUser)  {
-      return <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-        <Fa1 style={{ color: "#23d623ff"}}/>
+      return <div className="container">
+        <Fa1 id="number" />
         {text}
         </div>
     })
@@ -71,12 +71,12 @@ useEffect (() => {
       <h2>User data:</h2>
       <p><strong>Name:</strong> {user.name}</p>
       <p><strong>Email:</strong> {user.email}</p>
-      <p style={{ display: "flex", alignItems: "center"}}><HiDevicePhoneMobile style={{ fontSize: "24px"}}/>: {user.phone}</p>
+      <p className="phone-image"><HiDevicePhoneMobile style={{ fontSize: "24px"}}/>: {user.phone}</p>
       <p><strong>Username:</strong> {user.username}</p>
       <p><strong>Website:</strong> {user.website}</p>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", }}>
+      <div className="container">
         <button onClick={handleClick} >Next User</button>
-        <GoQuestion data-tooltip-id="my-tooltip" data-tooltip-content="Наступний користувач"  style={{ fontSize: "24px", marginLeft: "8px" }}/>
+        <GoQuestion className="question-image" data-tooltip-id="my-tooltip" data-tooltip-content="Наступний користувач" />
       </div>
       <Tooltip id="my-tooltip" place="top"/>
       <ToastContainer/>
